@@ -79,8 +79,21 @@ public class BossMan {
 		cbRotations.setBounds(108, 181, 84, 25);
 		frmBossmanRandomizer.getContentPane().add(cbRotations);
 		
-		String[] formatSelection = {"Line by Line", "List"};
+		String[] formatSelection = {"Line by Line", "List", "Lottery"};
 		JComboBox cbFormat = new JComboBox(formatSelection);
+		cbFormat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String currentSelection = (String) cbFormat.getSelectedItem();
+				if (currentSelection == "Lottery") {
+					cbRotations.setEnabled(false);
+				}
+				else {
+					if (!cbRotations.isEnabled()) {
+						cbRotations.setEnabled(true);
+					}
+				}
+			}
+		});
 		cbFormat.setBounds(293, 181, 168, 25);
 		frmBossmanRandomizer.getContentPane().add(cbFormat);
 		
