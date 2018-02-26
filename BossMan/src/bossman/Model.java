@@ -102,18 +102,37 @@ public class Model {
 		}
 	}
 	
+	private Person findLotteryWinner() {
+		Person highest = people.get(0);
+		for(int x = 1; x < people.size(); x++) {
+			Person current = people.get(x);
+			if (current.getValue() > highest.getValue()) {
+				highest = current;
+			}
+		}
+		return highest;
+	}
+	
 	public String generateOutput(String times, String format) {
 		String out = "";
-		int runs = Integer.parseInt(times);
-		for(int x = 0; x < runs; x++)
+		if (format == "Lottery")
 		{
 			this.randomize();
-			this.sortPeople();
-			if (format == "List" && runs != 1 && x != runs-1) {
-				out += this.createOutputString(format) + ",";
-			} 
-			else {
-				out += this.createOutputString(format);
+			out = this.findLotteryWinner().getName();
+		}
+		else
+		{
+			int runs = Integer.parseInt(times);
+			for(int x = 0; x < runs; x++)
+			{
+				this.randomize();
+				this.sortPeople();
+				if (format == "List" && runs != 1 && x != runs-1) {
+					out += this.createOutputString(format) + ",";
+				} 
+				else {
+					out += this.createOutputString(format);
+				}
 			}
 		}
 		return out;
